@@ -1,0 +1,207 @@
+{
+  "uid": "breeze_renewal_writeback",
+  "type": "workflow-action",
+  "config": {
+    "actionUrl": "https://agonzalez-cpu.github.io/renewal-app/",
+    "isPublished": false,
+    "supportedClients": [
+      {
+        "client": "AGENTS",
+        "toolType": "TAKE_ACTION",
+        "llmConfig": {
+          "actionDescription": "Use this tool after a Breeze renewal analysis is complete. Send the HubSpot company ID and the full analysis output text or JSON. The service extracts Total Raw Score, Renewal Status, and Confidence, then previews or writes those values to the HubSpot company properties renewal_health_score, renewal_status, and renewal_confidence. Use mode dry_run while testing. Use mode write only when the user has approved updating the company record."
+        }
+      },
+      {
+        "client": "WORKFLOWS"
+      }
+    ],
+    "inputFields": [
+      {
+        "typeDefinition": {
+          "name": "companyId",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "breezeOutput",
+          "type": "string",
+          "fieldType": "textarea"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "executionId",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "agentInstanceId",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "breezeUrl",
+          "type": "string",
+          "fieldType": "text"
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      },
+      {
+        "typeDefinition": {
+          "name": "mode",
+          "type": "enumeration",
+          "fieldType": "select",
+          "options": [
+            {
+              "value": "parse_only",
+              "label": "Parse only"
+            },
+            {
+              "value": "dry_run",
+              "label": "Dry run"
+            },
+            {
+              "value": "write",
+              "label": "Write to HubSpot"
+            }
+          ]
+        },
+        "supportedValueTypes": ["STATIC_VALUE"],
+        "isRequired": false
+      }
+    ],
+    "outputFields": [
+      {
+        "typeDefinition": {
+          "name": "hs_execution_state",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "status",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "mode",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "companyId",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "executionId",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "extractedValues",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "updatePayload",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "errorMessage",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "ctaCrmObjectType",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "ctaCrmObjectId",
+          "type": "string",
+          "externalOptions": false
+        }
+      },
+      {
+        "typeDefinition": {
+          "name": "ctaLabel",
+          "type": "string",
+          "externalOptions": false
+        }
+      }
+    ],
+    "labels": {
+      "en": {
+        "appDisplayName": "Breeze Renewal Writeback",
+        "actionName": "Send renewal output to writeback app",
+        "actionDescription": "Extract renewal score, status, and confidence from a Breeze output and send them to the writeback service.",
+        "actionCardContent": "Send Breeze renewal result for {{companyId}}",
+        "inputFieldLabels": {
+          "companyId": "HubSpot company ID",
+          "breezeOutput": "Breeze execution output",
+          "executionId": "Breeze execution ID",
+          "agentInstanceId": "Breeze agent instance ID",
+          "breezeUrl": "Breeze Studio URL",
+          "mode": "Writeback mode"
+        },
+        "inputFieldDescriptions": {
+          "companyId": "The HubSpot company object ID to update. If this tool runs on a company record, the backend can also use the current company object ID.",
+          "breezeOutput": "Paste or pass the full Breeze renewal analysis output. It can be JSON or text, but it must include Total Raw Score, Renewal Status, and Confidence.",
+          "executionId": "Optional Breeze execution ID for traceability.",
+          "agentInstanceId": "Optional Breeze agent instance ID for traceability.",
+          "breezeUrl": "Optional Breeze Studio URL for traceability.",
+          "mode": "Use dry_run while testing. Use write only after the update is approved."
+        },
+        "outputFieldLabels": {
+          "hs_execution_state": "Execution state",
+          "status": "Writeback status",
+          "mode": "Writeback mode",
+          "companyId": "Company ID",
+          "executionId": "Execution ID",
+          "extractedValues": "Extracted values",
+          "updatePayload": "HubSpot update payload",
+          "errorMessage": "Error message",
+          "ctaCrmObjectType": "CTA CRM object type",
+          "ctaCrmObjectId": "CTA CRM object ID",
+          "ctaLabel": "CTA label"
+        }
+      }
+    },
+    "objectTypes": ["COMPANY"]
+  }
+}
